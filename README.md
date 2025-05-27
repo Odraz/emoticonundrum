@@ -1,6 +1,9 @@
 # 🕵️‍♂️ Emoticonundrum - Unlock 'Em All! 🕵️‍♀️
 Think you're an emoji whiz? Prove it in Emoticonundrum! Craft emoji posts to unlock new emojis and expand your palette.
 
+## Let's go 🚀
+https://odraz.github.io/emoticonundrum/
+
 ## The Gist 💡
 - Start With Basics: ❤️, 😆, 😮, 😥, 😡, 👍.
 - Post Emojis: Combine emojis from your palette.
