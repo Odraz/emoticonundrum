@@ -643,8 +643,11 @@ Output Emoji,Output Name (Suggested),Category,Input Emojis,Notes
                     if (inputSeq && outputEmoji) {
                         allPossibleOutputEmojis.add(outputEmoji);
                         
+                        // Normalize the entire raw input string from CSV first
+                        const normalizedCsvInputString = normalizeEmoji(inputSeq);
+                        
                         // Create a canonical (sorted) key for the input sequence
-                        const emojisInSeq = Array.from(inputSeq); // Correctly splits multi-byte Unicode chars
+                        const emojisInSeq = Array.from(normalizedCsvInputString); // Correctly splits multi-byte Unicode chars
                         emojisInSeq.sort(); // Sorts the emojis alphabetically/by Unicode
                         const canonicalInputSeq = emojisInSeq.join('');
 
@@ -771,6 +774,18 @@ Output Emoji,Output Name (Suggested),Category,Input Emojis,Notes
         }
         
         /**
+         * Normalizes an emoji string by removing common variation selectors (VS15, VS16).
+         * This helps in treating different Unicode representations of the same visual emoji consistently.
+         * @param {string} emojiStr - The emoji string to normalize.
+         * @returns {string} The normalized emoji string.
+         */
+        const normalizeEmoji = (emojiStr) => {
+            if (typeof emojiStr !== 'string') return '';
+            // Remove U+FE0E (VS15 - text presentation) and U+FE0F (VS16 - emoji presentation)
+            return emojiStr.replace(/[\uFE0E\uFE0F]/g, '');
+        };
+
+        /**
          * Handles the logic when the player sends a post.
          * It checks the post against reactionRules and updates the game state.
          */
@@ -780,9 +795,12 @@ Output Emoji,Output Name (Suggested),Category,Input Emojis,Notes
             const postString = currentPostArray.join('');
             addChatMessage('player', postString);
 
-            // Create a canonical (sorted) version of the player's post for matching
-            const sortedPostArrayForMatching = [...currentPostArray].sort();
-            const canonicalPostString = sortedPostArrayForMatching.join('');
+            // Normalize each emoji string in the player's current post array
+            const normalizedPlayerArray = currentPostArray.map(emojiUnit => normalizeEmoji(emojiUnit));
+            
+            // Sort the array of normalized emoji strings
+            normalizedPlayerArray.sort();
+            const canonicalPostString = normalizedPlayerArray.join('');
 
             let reacted = false;
             if (reactionRules[canonicalPostString]) {

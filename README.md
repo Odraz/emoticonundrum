@@ -1,5 +1,5 @@
-# 🕵️‍♂️ Emoji Enigma - Unlock 'Em All! 🕵️‍♀️
-Think you're an emoji whiz? Prove it in Emoji Enigma! Craft emoji posts to unlock new emojis and expand your palette.
+# 🕵️‍♂️ Emoticonundrum - Unlock 'Em All! 🕵️‍♀️
+Think you're an emoji whiz? Prove it in Emoticonundrum! Craft emoji posts to unlock new emojis and expand your palette.
 
 ## The Gist 💡
 - Start With Basics: ❤️, 😆, 😮, 😥, 😡, 👍.
